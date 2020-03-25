@@ -4,7 +4,6 @@ Handles matching swipes.
 """
 
 from flask import Flask
-from flask import g
 from flask import redirect
 from flask import render_template
 from flask import request
@@ -39,15 +38,6 @@ if __name__ == '__main__':
                         default=7777)
     parser.add_argument('-d', '--debug',
                         help="Whether or not to run in debug mode.",
-                        default=False,
-                        action='store_true')
-    parser.add_argument('--prod',
-                        help="Whether or not to run in prod mode.",
-                        default=False,
-                        action='store_true')
-
-    parser.add_argument('--no_log',
-                        help="Whether to not keep logs.",
                         default=False,
                         action='store_true')
 
