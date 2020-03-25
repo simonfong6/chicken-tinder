@@ -1,5 +1,6 @@
 from flask import Blueprint
 from flask import jsonify
+from flask import render_template
 from flask import send_file
 
 rooms = Blueprint(
@@ -9,7 +10,10 @@ rooms = Blueprint(
 
 @rooms.route('/<room>')
 def show(room):
-    return room
+    context = {
+        'name': room.capitalize()
+    }
+    return render_template('room.html.jinja', **context)
 
 @rooms.route('/restaurants')
 def restaurants():
