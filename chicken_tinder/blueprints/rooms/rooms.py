@@ -17,7 +17,7 @@ def show(room):
 
     context = {
         'name': room,
-        'restaurants': restaurants
+        'restaurants': restaurants['restaurants']
     }
     return render_template('room.html.jinja', **context)
 
