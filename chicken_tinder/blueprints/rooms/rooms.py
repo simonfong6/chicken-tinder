@@ -8,6 +8,7 @@ from flask import request
 from flask import send_file
 from flask import url_for
 
+
 rooms = Blueprint(
     'rooms',
     __name__,
@@ -31,6 +32,7 @@ def show(room):
         'restaurants': restaurants['restaurants']
     }
     return render_template('room.html.jinja', **context)
+
 
 @rooms.route('/restaurants')
 def restaurants():
