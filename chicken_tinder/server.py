@@ -5,6 +5,7 @@ Handles matching swipes.
 
 from flask import Flask
 from flask import render_template
+from flask_socketio import SocketIO
 
 
 from chicken_tinder.blueprints.rooms.rooms import rooms
@@ -12,8 +13,12 @@ from chicken_tinder.blueprints.rooms.rooms import rooms
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
+
 
 app.register_blueprint(rooms, url_prefix='/rooms')
+
+socketio = SocketIO(app)
 
 
 @app.route('/')
@@ -23,7 +28,8 @@ def index():
 
 def main(args):
 
-    app.run(
+    socketio.run(
+        app,
         host='0.0.0.0',
         debug=args.debug,
         port=args.port
