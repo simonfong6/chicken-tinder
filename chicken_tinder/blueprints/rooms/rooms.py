@@ -2,13 +2,22 @@ import json
 
 from flask import Blueprint
 from flask import jsonify
+from flask import redirect
 from flask import render_template
 from flask import send_file
+from flask import url_for
 
 rooms = Blueprint(
     'rooms',
     __name__,
     template_folder='templates')
+
+
+@rooms.route('/create', methods=['POST'])
+def create():
+    room = 'room'
+    return redirect(url_for('rooms.show', room=room))
+
 
 @rooms.route('/<room>')
 def show(room):
