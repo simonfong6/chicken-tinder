@@ -29,8 +29,8 @@
       Swipe left for no, Swipe right for yes.
     </p>
     <p>
-      <button class="btn btn-danger">Left</button>
-      <button class="btn btn-success">Right</button>
+      <button class="btn btn-danger" onclick="rejectRestaurant()">Left</button>
+      <button class="btn btn-success" onclick="acceptRestaurant()">Right</button>
     </p>
     {% for restaurant in restaurants %}
       <div class="card restaurants" style="width: 18rem; display: none">
