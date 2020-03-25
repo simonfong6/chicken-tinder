@@ -15,7 +15,7 @@ from chicken_tinder.blueprints.rooms.rooms import rooms
 
 
 app = Flask(__name__)
-app.register_blueprint(rooms)
+app.register_blueprint(rooms, url_prefix='/rooms')
 
 
 @app.route('/')
