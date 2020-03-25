@@ -4,6 +4,7 @@ from flask import Blueprint
 from flask import jsonify
 from flask import redirect
 from flask import render_template
+from flask import request
 from flask import send_file
 from flask import url_for
 
@@ -15,7 +16,8 @@ rooms = Blueprint(
 
 @rooms.route('/create', methods=['POST'])
 def create():
-    room = 'room'
+    room = request.form['room']
+
     return redirect(url_for('rooms.show', room=room))
 
 
