@@ -33,7 +33,7 @@
 
     {% for restaurant in restaurants %}
       <div class="card restaurants mx-auto" style="width: 18rem; display: none">
-        <input class="d-none" type="number" value="{{ restaurant.id }}">
+        <input class="d-none" id="restaurant-id" type="number" value="{{ restaurant.id }}">
         <img class="card-img-top" src="{{ restaurant.image }}" alt="Card image cap" width="100px">
         <div class="card-body">
           <h5 class="card-title">{{ restaurant.name }}</h5>

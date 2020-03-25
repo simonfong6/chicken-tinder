@@ -63,6 +63,16 @@ function nextRestaurant() {
   updateRestaurantCards(restaurants);
 }
 
+function getRestaurantId(restaurant) {
+  // Convert element to JQuery object. 
+  let $restaurant = $(restaurant);
+  
+  // Get restaurant id stored in hidden input tag.
+  let id = $restaurant.children().filter('#restaurant-id')[0].value;
+  
+  return id;
+}
+
 
 function rejectRestaurant() {
   let setIndex = findSetIndex();
@@ -72,7 +82,12 @@ function rejectRestaurant() {
 
 
 function acceptRestaurant() {
+  let restaurants = getRestaurants();
   let setIndex = findSetIndex();
+  let restaurant = restaurants[setIndex];
+
+  let id = getRestaurantId(restaurant);
+
   console.log("Accept: " + setIndex);
 
   nextRestaurant();
