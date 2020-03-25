@@ -27,7 +27,7 @@ def show(room):
         restaurants = json.load(f)
 
     context = {
-        'name': room,
+        'room': room,
         'restaurants': restaurants['restaurants']
     }
     return render_template('room.html.jinja', **context)

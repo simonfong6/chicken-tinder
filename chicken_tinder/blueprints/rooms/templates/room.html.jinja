@@ -20,12 +20,15 @@
   <link rel="stylesheet" href="/static/css/stylesheet.css">
 
   <!-- Javascript -->
+  <script>
+    let room = {{ room }};
+  </script>
   <script src="/static/js/rooms.js"></script>
 </head>
 <body>
   <div class="container">
     <div class="mx-auto" style="width: 18rem;">
-      <h1>{{ name.capitalize() }}</h1>
+      <h1>{{ room.capitalize() }}</h1>
       <p>
         Swipe left for no, Swipe right for yes.
       </p>
