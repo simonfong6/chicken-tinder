@@ -93,6 +93,9 @@ function acceptRestaurant() {
   nextRestaurant();
 }
 
+// Socket IO
+let socket;
+
 // Only run after the page setup.
 $( document ).ready(function() {
   let restaurants = getRestaurants();
@@ -104,5 +107,17 @@ $( document ).ready(function() {
   restaurants_displayed[0] = true;
 
   updateRestaurantCards(restaurants);
+
+  // Socket IO
+  socket = io.connect('http://' + document.domain + ':' + location.port + '/matches');
+
+  // When the socket connection is made, tell the server which room to join.
+  socket.on('connect', function() {
+    socket.emit('joined', {'room': room});
+  });
+
+  socket.on('status', function(data) {
+    console.log(data.msg);
+  });
 
 });

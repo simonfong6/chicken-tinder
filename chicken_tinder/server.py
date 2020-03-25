@@ -5,6 +5,8 @@ Handles matching swipes.
 
 from flask import Flask
 from flask import render_template
+from flask_socketio import emit
+from flask_socketio import join_room
 from flask_socketio import SocketIO
 
 
@@ -24,6 +26,14 @@ socketio = SocketIO(app)
 @app.route('/')
 def index():
     return render_template('index.html.jinja')
+
+
+@socketio.on('joined', namespace='/matches')
+def joined(message):
+    """When someone joins a room."""
+    room = message['room']
+    join_room(room)
+    emit('status', {'msg': f'Joined the room: {room}'}, room=room)
 
 
 def main(args):
