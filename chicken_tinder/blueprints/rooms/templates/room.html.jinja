@@ -30,8 +30,14 @@
       <button class="btn btn-success">Right</button>
     </p>
     {% for restaurant in restaurants %}
-      <h3> {{restaurant.name}} </h3>
-      <img class="img-fluid" src="{{restaurant.image}}" />
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{restaurant.image}}" alt="Card image cap" width="100px">
+        <div class="card-body">
+          <h5 class="card-title">{{restaurant.name}}</h5>
+          <p class="card-text">A restaurant with food that you can eat.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
     {% endfor %}
   </div>
 
