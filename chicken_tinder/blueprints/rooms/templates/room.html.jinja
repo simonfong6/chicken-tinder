@@ -24,16 +24,15 @@
 </head>
 <body>
   <div class="container">
-    <h1>{{ name.capitalize() }}</h1>
-    <p>
-      Swipe left for no, Swipe right for yes.
-    </p>
-    <p>
-      <button class="btn btn-danger" onclick="rejectRestaurant()">Left</button>
-      <button class="btn btn-success" onclick="acceptRestaurant()">Right</button>
-    </p>
+    <div class="mx-auto" style="width: 18rem;">
+      <h1>{{ name.capitalize() }}</h1>
+      <p>
+        Swipe left for no, Swipe right for yes.
+      </p>
+    </div>
+
     {% for restaurant in restaurants %}
-      <div class="card restaurants" style="width: 18rem; display: none">
+      <div class="card restaurants mx-auto" style="width: 18rem; display: none">
         <img class="card-img-top" src="{{ restaurant.image }}" alt="Card image cap" width="100px">
         <div class="card-body">
           <h5 class="card-title">{{ restaurant.name }}</h5>
@@ -42,6 +41,11 @@
         </div>
       </div>
     {% endfor %}
+
+    <p class="mx-auto my-1" style="width: 18rem;">
+      <button class="btn btn-danger mx-0 d-inline" style="width: 49%;" onclick="rejectRestaurant()">Left</button>
+      <button class="btn btn-success mx-0 d-inline"style="width: 49%;" onclick="acceptRestaurant()">Right</button>
+    </p>
   </div>
 
 </body>
