@@ -116,6 +116,7 @@ $( document ).ready(function() {
     socket.emit('joined', {'room': room});
   });
 
+  // Receive messages from the server.
   socket.on('status', function(data) {
     console.log(data.msg);
   });
