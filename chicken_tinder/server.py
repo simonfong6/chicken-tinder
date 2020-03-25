@@ -11,7 +11,11 @@ from flask import send_from_directory
 from flask import url_for
 
 
+from chicken_tinder.blueprints.rooms.rooms import rooms
+
+
 app = Flask(__name__)
+app.register_blueprint(rooms)
 
 
 @app.route('/')
