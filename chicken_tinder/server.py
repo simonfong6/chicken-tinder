@@ -23,6 +23,9 @@ app.register_blueprint(rooms, url_prefix='/rooms')
 socketio = SocketIO(app)
 
 
+connected_count = 0
+
+
 @app.route('/')
 def index():
     return render_template('index.html.jinja')
@@ -31,9 +34,19 @@ def index():
 @socketio.on('joined', namespace='/matches')
 def joined(message):
     """When someone joins a room."""
+    global connected_count
+    connected_count += 1
+
     room = message['room']
     join_room(room)
-    emit('status', {'msg': f'Joined the room: {room}'}, room=room)
+    emit('status', {'msg': f'Joined the room: {room} Count: {connected_count}'}, room=room)
+
+
+@socketio.on('disconnect', namespace='/matches')
+def disconnect():
+    """When someone leaves a room."""
+    global connected_count
+    connected_count -= 1
 
 
 def main(args):
