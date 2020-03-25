@@ -1,3 +1,5 @@
+import json
+
 from flask import Blueprint
 from flask import jsonify
 from flask import render_template
@@ -10,8 +12,12 @@ rooms = Blueprint(
 
 @rooms.route('/<room>')
 def show(room):
+    with open('blueprints/rooms/restaurants.json') as f:
+        restaurants = json.load(f)
+
     context = {
-        'name': room
+        'name': room,
+        'restaurants': restaurants
     }
     return render_template('room.html.jinja', **context)
 
