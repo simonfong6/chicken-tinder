@@ -9,6 +9,21 @@
             "id": 2,
             "name": "Poke One and a Half",
             "image": "https://image-share-public.s3-us-west-2.amazonaws.com/test/ba2a5217-6bfd-4cd9-b2b4-df9c73cb3e4d.png"
+        },
+        {
+            "id": 3,
+            "name": "Tofu House",
+            "image": "https://image-share-public.s3-us-west-2.amazonaws.com/test/adb8972f-ba82-4009-a2e1-e0aa1f80a774.png"
+        },
+        {
+            "id": 4,
+            "name": "Spicy City",
+            "image": "https://image-share-public.s3-us-west-2.amazonaws.com/test/c51c14e9-609b-4437-9b77-3bcafd9c1cb5.png"
+        },
+        {
+            "id": 5,
+            "name": "Tajima",
+            "image": "https://image-share-public.s3-us-west-2.amazonaws.com/test/0aa20367-e95c-4f98-9f24-901ca8347955.png"
         }
     ]
 }
