@@ -11,7 +11,7 @@ rooms = Blueprint(
 @rooms.route('/<room>')
 def show(room):
     context = {
-        'name': room.capitalize()
+        'name': room
     }
     return render_template('room.html.jinja', **context)
 
