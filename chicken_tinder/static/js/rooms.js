@@ -75,7 +75,16 @@ function getRestaurantId(restaurant) {
 
 
 function rejectRestaurant() {
+  let restaurants = getRestaurants();
   let setIndex = findSetIndex();
+  let numRestaurants = restaurants.length;
+  let lastRestaurantIndex = numRestaurants - 1;
+
+  if (setIndex == lastRestaurantIndex) {
+    console.log("Last index, no more restaurants.");
+    return;
+  }
+
   console.log("Reject: " + setIndex);
   nextRestaurant();
 }
@@ -84,6 +93,14 @@ function rejectRestaurant() {
 function acceptRestaurant() {
   let restaurants = getRestaurants();
   let setIndex = findSetIndex();
+  let numRestaurants = restaurants.length;
+  let lastRestaurantIndex = numRestaurants - 1;
+
+  if (setIndex == lastRestaurantIndex) {
+    console.log("Last index, no more restaurants.");
+    return;
+  }
+
   let restaurant = restaurants[setIndex];
 
   let id = getRestaurantId(restaurant);
