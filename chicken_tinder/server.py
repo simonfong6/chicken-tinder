@@ -61,6 +61,9 @@ def reset(message):
 
     restaurant_room.reset()
 
+    # Reset the other clients.
+    emit('reset-client', room=room)
+
     emit('count-request', {}, room=room)
 
     logger.debug("Reset received")

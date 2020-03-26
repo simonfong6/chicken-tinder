@@ -152,10 +152,13 @@ function updateClientCount(count) {
 let socket;
 
 
-function resetRestaurants() {
-  // Reset the server side counter.
-  socket.emit('reset', {'room': room});
+function resetRoom() {
+    // Reset the server side counter.
+    socket.emit('reset', {'room': room});
+}
 
+
+function resetRestaurants() {
   // Show the first card only.
   clearRestaurants();
   restaurants_displayed[0] = true;
@@ -201,6 +204,11 @@ $( document ).ready(function() {
   socket.on('client-count', function(data) {
     let count = data.client_count;
     updateClientCount(count);
+  });
+
+  // Reset request from server.
+  socket.on('reset-client', function(data) {
+    resetRestaurants();
   });
 
   // Receive matches from the server.
