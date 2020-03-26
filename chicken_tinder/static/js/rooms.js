@@ -153,7 +153,14 @@ let socket;
 
 
 function resetRestaurants() {
+  // Reset the server side counter.
   socket.emit('reset', {'room': room});
+
+  // Show the first card only.
+  clearRestaurants();
+  restaurants_displayed[0] = true;
+  let restaurants = getRestaurants();
+  updateRestaurantCards(restaurants);
 }
 
 
