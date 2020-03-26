@@ -27,9 +27,16 @@ def show(room):
     with open('blueprints/rooms/restaurants.json') as f:
         restaurants = json.load(f)
 
+    empty_restaurant = {
+        'id': -1,
+        'name': 'No more restaurants near you :(',
+        'image': 'https://image-share-public.s3-us-west-2.amazonaws.com/test/8f560335-16a1-4062-ad31-35046cf1fc5b.png'
+    }
+
     context = {
         'room': room,
-        'restaurants': restaurants['restaurants']
+        'restaurants': restaurants['restaurants'],
+        'empty_restaurant': empty_restaurant
     }
     return render_template('room.html.jinja', **context)
 
