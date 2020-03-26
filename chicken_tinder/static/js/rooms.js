@@ -117,6 +117,31 @@ function acceptRestaurant() {
   nextRestaurant();
 }
 
+function clearRestaurants() {
+  let restaurants = getRestaurants();
+
+  for (let i = 0; i < restaurants_displayed.length; i++) {
+    restaurants_displayed[i] = false;
+  }
+
+  updateRestaurantCards(restaurants);
+}
+
+function setRestaurantWithId(targetId) {
+  let restaurants = getRestaurants();
+  console.log("Target ID" + typeof(targetId));
+
+  for (let i = 0; i < restaurants.length; i++) {
+    let restaurant = restaurants[i];
+    let id = getRestaurantId(restaurant);
+    id = Number(id);
+    console.log(typeof(id));
+    if (id === targetId) {
+      $(restaurant).show();
+    }
+  }
+}
+
 // Socket IO
 let socket;
 
@@ -157,6 +182,11 @@ $( document ).ready(function() {
 
     // Disable the swipe buttons.
     disableButtons();
+
+    clearRestaurants();
+    let matchedId = data.matched;
+    matchedId = Number(matchedId);
+    setRestaurantWithId(matchedId);
   });
 
 });
