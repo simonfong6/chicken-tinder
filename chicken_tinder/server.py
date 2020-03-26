@@ -75,7 +75,10 @@ def count(message):
 
     restaurant_room.increment_clients_count()
 
-    emit('client-count', {'client_count': restaurant_room.clients_count}, room=room)
+    emit(
+        'client-count',
+        {'client_count': restaurant_room.clients_count},
+        room=room)
 
     logger.debug(f"Clients count: {restaurant_room.clients_count}")
 
