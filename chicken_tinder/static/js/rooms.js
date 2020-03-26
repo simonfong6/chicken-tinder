@@ -73,16 +73,21 @@ function getRestaurantId(restaurant) {
   return id;
 }
 
+function disableButtons() {
+  $('#reject').prop('disabled', true);
+  $('#accept').prop('disabled', true);
+}
+
 
 function rejectRestaurant() {
   let restaurants = getRestaurants();
   let setIndex = findSetIndex();
   let numRestaurants = restaurants.length;
-  let lastRestaurantIndex = numRestaurants - 1;
+  let secondToLastRestaurantIndex = numRestaurants - 2;
 
-  if (setIndex == lastRestaurantIndex) {
+  if (setIndex == secondToLastRestaurantIndex) {
     console.log("Last index, no more restaurants.");
-    return;
+    disableButtons();
   }
 
   console.log("Reject: " + setIndex);
@@ -94,11 +99,11 @@ function acceptRestaurant() {
   let restaurants = getRestaurants();
   let setIndex = findSetIndex();
   let numRestaurants = restaurants.length;
-  let lastRestaurantIndex = numRestaurants - 1;
+  let secondToLastRestaurantIndex = numRestaurants - 2;
 
-  if (setIndex == lastRestaurantIndex) {
+  if (setIndex == secondToLastRestaurantIndex) {
     console.log("Last index, no more restaurants.");
-    return;
+    disableButtons();
   }
 
   let restaurant = restaurants[setIndex];
