@@ -132,6 +132,9 @@ $( document ).ready(function() {
 
   updateRestaurantCards(restaurants);
 
+  // Hide match box.
+  $('#match-box').hide();
+
   // Socket IO
   socket = io.connect('http://' + document.domain + ':' + location.port + '/matches');
 
@@ -148,6 +151,8 @@ $( document ).ready(function() {
   // Receive matches from the server.
   socket.on('match-found', function(data) {
     console.log("Matched restaurant: " + data.matched);
+    // Show matched button!
+    $('#match-box').show();
   });
 
 });
