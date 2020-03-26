@@ -151,8 +151,12 @@ $( document ).ready(function() {
   // Receive matches from the server.
   socket.on('match-found', function(data) {
     console.log("Matched restaurant: " + data.matched);
+
     // Show matched button!
     $('#match-box').show();
+
+    // Disable the swipe buttons.
+    disableButtons();
   });
 
 });
