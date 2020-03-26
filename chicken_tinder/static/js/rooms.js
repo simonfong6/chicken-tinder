@@ -78,6 +78,11 @@ function disableButtons() {
   $('#accept').prop('disabled', true);
 }
 
+function enableButtons() {
+  $('#reject').prop('disabled', false);
+  $('#accept').prop('disabled', false);
+}
+
 
 function rejectRestaurant() {
   let restaurants = getRestaurants();
@@ -164,6 +169,12 @@ function resetRestaurants() {
   restaurants_displayed[0] = true;
   let restaurants = getRestaurants();
   updateRestaurantCards(restaurants);
+
+  // Re-enable buttons.
+  enableButtons();
+
+  // Hide match button.
+  $('#match-box').hide();
 }
 
 
