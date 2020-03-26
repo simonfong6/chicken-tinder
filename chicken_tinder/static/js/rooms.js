@@ -142,8 +142,20 @@ function setRestaurantWithId(targetId) {
   }
 }
 
+
+function updateClientCount(count) {
+  $('#room-count').text(count);
+}
+
+
 // Socket IO
 let socket;
+
+
+function resetRestaurants() {
+  socket.emit('reset', {'room': room});
+}
+
 
 // Only run after the page setup.
 $( document ).ready(function() {
@@ -171,6 +183,17 @@ $( document ).ready(function() {
   // Receive messages from the server.
   socket.on('status', function(data) {
     console.log(data.msg);
+  });
+
+  // Send a message for the server to count.
+  socket.on('count-request', function(data) {
+    socket.emit('count', {'room': room});
+  });
+
+  // Receive total count.
+  socket.on('client-count', function(data) {
+    let count = data.client_count;
+    updateClientCount(count);
   });
 
   // Receive matches from the server.

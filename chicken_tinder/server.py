@@ -2,17 +2,24 @@
 """
 Handles matching swipes.
 """
-from collections import Counter
+import logging
+import sys
+from collections import defaultdict
 
 
 from flask import Flask
 from flask import render_template
+from flask import request
 from flask_socketio import emit
 from flask_socketio import join_room
 from flask_socketio import SocketIO
 
 
 from chicken_tinder.blueprints.rooms.rooms import rooms
+from chicken_tinder.models.restaurant_room import RestaurantRoom
+
+
+logger = logging.getLogger(__name__)
 
 
 app = Flask(__name__)
@@ -25,9 +32,7 @@ app.register_blueprint(rooms, url_prefix='/rooms')
 socketio = SocketIO(app)
 
 
-connected_count = 0
-
-restaurant_counts = Counter()
+restaurant_rooms = defaultdict(RestaurantRoom)
 
 
 @app.route('/')
@@ -38,42 +43,65 @@ def index():
 @socketio.on('joined', namespace='/matches')
 def joined(message):
     """When someone joins a room."""
-    global connected_count
-    connected_count += 1
-
     room = message['room']
+
     join_room(room)
-    emit('status', {'msg': f'Joined the room: {room} Count: {connected_count}'}, room=room)
+
+    emit('status', {'msg': f'Joined the room: {room}'}, room=room)
+
+    reset(message)
 
 
-@socketio.on('disconnect', namespace='/matches')
-def disconnect():
-    """When someone leaves a room."""
-    global connected_count
-    connected_count -= 1
+@socketio.on('reset', namespace='/matches')
+def reset(message):
+    """Reset a room."""
+    room = message['room']
+
+    restaurant_room = restaurant_rooms[room]
+
+    restaurant_room.reset()
+
+    emit('count-request', {}, room=room)
+
+    logger.debug("Reset received")
+
+
+@socketio.on('count', namespace='/matches')
+def count(message):
+    """Counts client in a room."""
+    room = message['room']
+
+    restaurant_room = restaurant_rooms[room]
+
+    restaurant_room.increment_clients_count()
+
+    emit('client-count', {'client_count': restaurant_room.clients_count}, room=room)
+
+    logger.debug(f"Clients count: {restaurant_room.clients_count}")
 
 
 @socketio.on('accept', namespace='/matches')
 def accept(message):
     """When someone leaves a room."""
-    global connected_count
-    global restaurant_counts
-
     room = message['room']
     restaurant_id = message['id']
 
-    # Update restaurant accept count.
-    restaurant_counts[restaurant_id] += 1
+    restaurant_room = restaurant_rooms[room]
 
-    restaurant_count = restaurant_counts[restaurant_id]
+     # Update restaurant accept count.
+    restaurant_room.add_hit(restaurant_id)
 
-    # Check if the count is accepted by all members.
-    if restaurant_count == connected_count:
-        # We found a restaurant that everyone agrees on, tell everyone.
+    if restaurant_room.is_match(restaurant_id):
         emit('match-found', {'matched': restaurant_id}, room=room)
 
 
 def main(args):
+
+    logger.setLevel(logging.DEBUG)
+    handler = logging.StreamHandler(sys.stdout)
+    formatter = logging.Formatter("%(levelname)s:%(name)s:%(message)s")
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
 
     socketio.run(
         app,

@@ -30,9 +30,13 @@
   <div class="container">
     <div class="mx-auto" style="width: 18rem;">
       <h1>{{ room.capitalize() }}</h1>
+      <div class="text-muted">
+        Room Count: <span id="room-count"></span>
+      </div>
       <p>
         Swipe left for no, Swipe right for yes.
       </p>
+      <button class="btn btn-warning mb-1 mx-0 w-100" onclick="resetRestaurants()">Reset</button>
     </div>
 
     {% for restaurant in restaurants %}
