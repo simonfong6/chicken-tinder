@@ -88,6 +88,8 @@ function acceptRestaurant() {
 
   let id = getRestaurantId(restaurant);
 
+  socket.emit('accept', {'id': id, 'room': room})
+
   console.log("Accept: " + setIndex);
 
   nextRestaurant();
@@ -119,6 +121,11 @@ $( document ).ready(function() {
   // Receive messages from the server.
   socket.on('status', function(data) {
     console.log(data.msg);
+  });
+
+  // Receive matches from the server.
+  socket.on('match-found', function(data) {
+    console.log("Matched restaurant: " + data.matched);
   });
 
 });

@@ -2,6 +2,8 @@
 """
 Handles matching swipes.
 """
+from collections import Counter
+
 
 from flask import Flask
 from flask import render_template
@@ -25,6 +27,8 @@ socketio = SocketIO(app)
 
 connected_count = 0
 
+restaurant_counts = Counter()
+
 
 @app.route('/')
 def index():
@@ -47,6 +51,26 @@ def disconnect():
     """When someone leaves a room."""
     global connected_count
     connected_count -= 1
+
+
+@socketio.on('accept', namespace='/matches')
+def accept(message):
+    """When someone leaves a room."""
+    global connected_count
+    global restaurant_counts
+
+    room = message['room']
+    restaurant_id = message['id']
+
+    # Update restaurant accept count.
+    restaurant_counts[restaurant_id] += 1
+
+    restaurant_count = restaurant_counts[restaurant_id]
+
+    # Check if the count is accepted by all members.
+    if restaurant_count == connected_count:
+        # We found a restaurant that everyone agrees on, tell everyone.
+        emit('match-found', {'matched': restaurant_id}, room=room)
 
 
 def main(args):
